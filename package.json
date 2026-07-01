@@ -1,0 +1,12 @@
+{
+  "name": "sa-yoga-backend",
+  "version": "1.0.0",
+  "description": "SA Yoga Classes Diet Planner Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
