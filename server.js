@@ -53,7 +53,7 @@ function callClaude(prompt, reports, callback) {
 
   const bodyObj = {
     model: 'claude-opus-4-6',
-    max_tokens: 8192,
+    max_tokens: 16000,
     messages: [{ role: 'user', content: userContent }]
   };
 
@@ -130,6 +130,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'ok',
+      version: 'v2-no-pdf-beta-2026-07-05',
       keySet: !!API_KEY,
       keyPrefix: API_KEY ? API_KEY.substring(0, 10) : 'none',
       maxBodyMB: MAX_BODY_SIZE / 1024 / 1024
@@ -211,6 +212,7 @@ const server = http.createServer((req, res) => {
 
 server.timeout = 150000; // 2.5 minutes server timeout
 server.listen(PORT, () => {
+  console.log('=== SERVER VERSION: v2-no-pdf-beta-2026-07-05 ===');
   console.log(`SA Yoga backend running on port ${PORT}`);
   console.log(`API key set: ${!!API_KEY}`);
   console.log(`Max body size: ${MAX_BODY_SIZE / 1024 / 1024}MB`);
