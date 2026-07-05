@@ -53,7 +53,7 @@ function callClaude(prompt, reports, callback) {
 
   const bodyObj = {
     model: 'claude-opus-4-6',
-    max_tokens: 16000,
+    max_tokens: 20000,
     messages: [{ role: 'user', content: userContent }]
   };
 
@@ -72,7 +72,7 @@ function callClaude(prompt, reports, callback) {
     path: '/v1/messages',
     method: 'POST',
     headers,
-    timeout: 280000 // ~4.7 minute timeout — headroom for max_tokens 16000 + PDF processing
+    timeout: 330000 // 5.5 minute timeout — headroom for max_tokens 20000 + PDF processing
   };
 
   const apiReq = https.request(options, apiRes => {
@@ -130,7 +130,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'ok',
-      version: 'v3-longer-timeout-2026-07-05',
+      version: 'v4-macro-breakdown-2026-07-05',
       keySet: !!API_KEY,
       keyPrefix: API_KEY ? API_KEY.substring(0, 10) : 'none',
       maxBodyMB: MAX_BODY_SIZE / 1024 / 1024
@@ -210,9 +210,9 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.timeout = 300000; // 5 minutes — must exceed the outbound Claude request timeout above
+server.timeout = 350000; // ~5.8 minutes — must exceed the outbound Claude request timeout above
 server.listen(PORT, () => {
-  console.log('=== SERVER VERSION: v3-longer-timeout-2026-07-05 ===');
+  console.log('=== SERVER VERSION: v4-macro-breakdown-2026-07-05 ===');
   console.log(`SA Yoga backend running on port ${PORT}`);
   console.log(`API key set: ${!!API_KEY}`);
   console.log(`Max body size: ${MAX_BODY_SIZE / 1024 / 1024}MB`);
