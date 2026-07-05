@@ -49,13 +49,11 @@ function callClaude(prompt, reports, callback) {
     'x-api-key': API_KEY,
     'anthropic-version': '2023-06-01'
   };
-  if (hasPDFs) {
-    headers['anthropic-beta'] = 'pdfs-2024-09-25';
-  }
+  // Native PDF support (base64 document blocks) is now GA — no beta header needed.
 
   const bodyObj = {
     model: 'claude-opus-4-6',
-    max_tokens: 4096,
+    max_tokens: 8192,
     messages: [{ role: 'user', content: userContent }]
   };
 
@@ -66,7 +64,7 @@ function callClaude(prompt, reports, callback) {
   console.log('Reports:', reports ? reports.length : 0);
   console.log('Has PDFs:', hasPDFs, '| Has images:', hasImages);
   console.log('Payload size:', Math.round(payload.length / 1024), 'KB');
-  console.log('PDF beta header:', hasPDFs ? 'YES' : 'NO');
+  console.log('PDF beta header: none (native PDF support is GA)');
   console.log('Key prefix:', API_KEY ? API_KEY.substring(0, 12) : 'MISSING');
 
   const options = {
